@@ -20,6 +20,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "_Solution", "_Solution", "{
 		nuget.config = nuget.config
 		Packages.props = Packages.props
 		README.md = README.md
+		RevertChangeReport.zip = RevertChangeReport.zip
 	EndProjectSection
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "_Docker", "_Docker", "{7A261AC4-6FD2-4E54-9DBE-82D78601A150}"
