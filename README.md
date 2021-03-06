@@ -44,8 +44,7 @@ We wanted to implement a change log that documents on a per-field-level how fiel
 ## Pre-requisites and Dependencies
 
 ⟹ Does your module rely on other Sitecore modules or frameworks?
-- No
-- Jquery.
+- Jquery
 
 _Remove this subsection if your entry does not have any prerequisites other than Sitecore_
 
@@ -55,7 +54,7 @@ Install the Sitecore Package, which will give you the dll, config, and the aspx.
 
 1. Start docker environment using `.\Start-Hackathon.ps1`
 2. Open solution in Visual Studio and run build
-3. Use the Sitecore Installation wizard to install the [package](#link-to-package)
+3. Use the Sitecore Installation wizard to install the [RevertChangeReport](../RevertChangeReport.zip)
 
 ## Usage instructions
 ⟹ Provide documentation about your module, how do the users use your module, where are things located, what do the icons mean, are there any secret shortcuts etc.
@@ -63,11 +62,7 @@ Once package is installed, changes to fields will be tracked. To view an audit o
 Browse the list of changes, which can be filtered by value, and click the revert button to revert a field to its previous state.
 After clicking the button the reversion will refelct in the log and the content editor.
 
-![Hackathon Logo](docs/images/hackathon.png?raw=true "Hackathon Logo")
-
-You can embed images of different formats too:
-
-![Deal With It](docs/images/deal-with-it.gif?raw=true "Deal With It")
+![Change Log](docs/images/ChangeLog.PNG?raw=true "Change Log")
 
 ## Comments
 Thanks for organizing, hopefully you like our module!
