@@ -32,7 +32,10 @@
         $.ajax({
             type: "POST",
             url: "/api/sitecore/ChangeLog/RevertChange",
-            data: {ItemID: itemID, FieldID: fieldID, FieldValue: fieldValue}
+            data: { ItemID: itemID, FieldID: fieldID, FieldValue: fieldValue },
+            success: function (data) {
+                UpdateTableFromJSON();
+            }
         });
     }
     function CreateTableFromJSON() {
@@ -119,6 +122,8 @@
             var itemID = logs[i][col[(labels.indexOf("ItemID"))]];
             var fieldID = logs[i][col[(labels.indexOf("FieldID"))]];
             var fieldValue = logs[i][col[(labels.indexOf("OldValue"))]];
+            fieldValue = encodeURIComponent(fieldValue);
+            console.log(fieldValue);
 
             for (var j = 0; j < col.length + 1; j++) {
                 var tabCell = tr.insertCell(-1);
@@ -126,7 +131,9 @@
                     tabCell.innerHTML = "<input type=\"button\" value=\"Revert\" onclick=\"RevertItem('" + itemID + "', '" + fieldID + "', '" + fieldValue + "')\">";
                 }
                 else {
-                    tabCell.innerHTML = logs[i][col[j]];
+                    var value = logs[i][col[j]];
+                    value = value.replace(/"/g, '&quot;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
+                    tabCell.innerHTML = value;
                 }
 
 

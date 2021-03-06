@@ -8,6 +8,7 @@ using System.Xml.Linq;
 using Sitecore.Diagnostics;
 using Sitecore.Data.Items;
 using Sitecore.Configuration;
+using System.Web;
 
 namespace UnhandledException.Feature.SitecoreExtensions.Services
 {
@@ -55,7 +56,7 @@ namespace UnhandledException.Feature.SitecoreExtensions.Services
                 if (ID.TryParse(FieldID, out sitecoreFieldID))
                 {
                     item.Editing.BeginEdit();
-                    item.Fields[sitecoreFieldID].Value = FieldValue;
+                    item.Fields[sitecoreFieldID].Value = HttpUtility.UrlDecode(FieldValue);
                     item.Editing.EndEdit();
                 }
             }

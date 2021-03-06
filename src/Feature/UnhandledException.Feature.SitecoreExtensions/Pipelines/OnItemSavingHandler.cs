@@ -1,4 +1,5 @@
-﻿using Sitecore.Data.Fields;
+﻿using Sitecore.Configuration;
+using Sitecore.Data.Fields;
 using Sitecore.Diagnostics;
 using System;
 using System.Collections.Generic;
@@ -83,7 +84,7 @@ namespace UnhandledException.Feature.SitecoreExtensions.Pipelines
                 }
             }
 
-            var max = 3;
+            var max = Settings.GetIntSetting("ChangeLogMax", 500);
 
             if (changeLogItem.SaveStates.Count() > max)
             {
