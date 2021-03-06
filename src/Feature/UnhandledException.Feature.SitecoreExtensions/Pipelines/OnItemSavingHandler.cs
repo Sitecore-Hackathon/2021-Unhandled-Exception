@@ -82,7 +82,14 @@ namespace UnhandledException.Feature.SitecoreExtensions.Pipelines
                     changeLogSaveState.changeLogFields.Add(changeLogField);
                 }
             }
-            
+
+            var max = 3;
+
+            if (changeLogItem.SaveStates.Count() > max)
+            {
+                changeLogItem.SaveStates.RemoveAt(0);
+            }
+
             //no fields were updated, we don't need to touch the xml file.
             if (noFieldsWereUpdated)
             {
