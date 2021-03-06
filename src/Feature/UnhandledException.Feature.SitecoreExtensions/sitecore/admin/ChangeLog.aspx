@@ -3,7 +3,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Convert JSON Data to HTML Table</title>
+    <title>Change Log</title>
     <style>
         th, td, p, input {
             font:14px Verdana;
