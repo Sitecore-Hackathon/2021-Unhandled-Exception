@@ -26,8 +26,6 @@ services:
   traefik:
     volumes:
       - ./traefik:C:/etc/traefik
-    depends_on:
-      - cm
 
   mssql:
     image: ${REGISTRY}${COMPOSE_PROJECT_NAME}-xm1-mssql:${VERSION:-latest}
