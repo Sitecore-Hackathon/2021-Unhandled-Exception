@@ -28,6 +28,13 @@
 
 <script>
     window.onload = CreateTableFromJSON;
+    function RevertItem(itemID, fieldID, fieldValue) {
+        $.ajax({
+            type: "POST",
+            url: "/api/sitecore/ChangeLog/RevertChange",
+            data: {ItemID: itemID, FieldID: fieldID, FieldValue: fieldValue}
+        });
+    }
     function CreateTableFromJSON() {
         $.ajax({
             type: "GET",
@@ -89,6 +96,9 @@
             tr.appendChild(td);
         }
 
+        var td = document.createElement("td");
+        tr.appendChild(td);
+
         var tr = table.insertRow(-1);  
 
         //Render headers
@@ -98,14 +108,28 @@
             tr.appendChild(th);
         }
 
+        var th = document.createElement("th");
+        th.innerHTML = "Revert";
+        tr.appendChild(th);
+
         // ADD JSON DATA TO THE TABLE AS ROWS.
         for (var i = 0; i < logs.length; i++) {
 
             tr = table.insertRow(-1);
+            var itemID = logs[i][col[(labels.indexOf("ItemID"))]];
+            var fieldID = logs[i][col[(labels.indexOf("FieldID"))]];
+            var fieldValue = logs[i][col[(labels.indexOf("OldValue"))]];
 
-            for (var j = 0; j < col.length; j++) {
+            for (var j = 0; j < col.length + 1; j++) {
                 var tabCell = tr.insertCell(-1);
-                tabCell.innerHTML = logs[i][col[j]];
+                if (j == col.length) {
+                    tabCell.innerHTML = "<input type=\"button\" value=\"Revert\" onclick=\"RevertItem('" + itemID + "', '" + fieldID + "', '" + fieldValue + "')\">";
+                }
+                else {
+                    tabCell.innerHTML = logs[i][col[j]];
+                }
+
+
             }
         }
 

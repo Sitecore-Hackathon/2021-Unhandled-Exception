@@ -6,6 +6,8 @@ using System.IO;
 using UnhandledException.Feature.SitecoreExtensions.Models;
 using System.Xml.Linq;
 using Sitecore.Diagnostics;
+using Sitecore.Data.Items;
+using Sitecore.Configuration;
 
 namespace UnhandledException.Feature.SitecoreExtensions.Services
 {
@@ -14,7 +16,9 @@ namespace UnhandledException.Feature.SitecoreExtensions.Services
         public ChangeLogService() { }
         public List<ChangeLogModel> GetChangeLog(string itemFilter = "")
         {
-            string folder = "c:\\inetpub\\wwwroot\\App_Data\\ChangeLogs"; //set something up in config for this!
+            //string folder = "c:\\inetpub\\wwwroot\\App_Data\\ChangeLogs"; //set something up in config for this!
+            
+            string folder = AppDomain.CurrentDomain.BaseDirectory + Settings.GetSetting("DataFolder", "/App_Data") + Settings.GetSetting("ChangeLogDirectory", "/ChangeLogs");
             List<string> files = new List<string>();
             List<ChangeLogModel> changes = new List<ChangeLogModel>();
 
@@ -36,6 +40,25 @@ namespace UnhandledException.Feature.SitecoreExtensions.Services
 
 
             return changes;
+        }
+
+        public void RevertChange(string ItemID, string FieldID, string FieldValue)
+        {
+            ID sitecoreItemID;
+            if (ID.TryParse(ItemID, out sitecoreItemID))
+            {
+                Database master = Sitecore.Configuration.Factory.GetDatabase("master");
+                Item item = master.GetItem(sitecoreItemID);
+                if (item == null)
+                    return;
+                ID sitecoreFieldID;
+                if (ID.TryParse(FieldID, out sitecoreFieldID))
+                {
+                    item.Editing.BeginEdit();
+                    item.Fields[sitecoreFieldID].Value = FieldValue;
+                    item.Editing.EndEdit();
+                }
+            }
         }
 
         private List<ChangeLogModel> MapChanges(string filePath)

@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Sitecore.Data;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
@@ -18,7 +19,7 @@ namespace UnhandledException.Feature.SitecoreExtensions.Controllers
             var changeLogService = new ChangeLogService();
             var changes = changeLogService.GetChangeLog(ItemID);
 
-            changes = changes.OrderBy(x => x.Time)?.ToList();
+            changes = changes.OrderByDescending(x => x.Time)?.ToList();
 
             if (!string.IsNullOrEmpty(ItemID))
                 changes = changes.Where(x => string.Equals(x.ItemID.ToString(), ItemID, StringComparison.InvariantCultureIgnoreCase)).ToList();
@@ -49,6 +50,13 @@ namespace UnhandledException.Feature.SitecoreExtensions.Controllers
                 Data = changes,
                 JsonRequestBehavior = JsonRequestBehavior.AllowGet
             };
+        }
+
+        [HttpPost]
+        public void RevertChange(string ItemID, string FieldID, string FieldValue = "")
+        {
+            var changeLogService = new ChangeLogService();
+            changeLogService.RevertChange(ItemID, FieldID, FieldValue);
         }
     }
 }
