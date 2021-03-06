@@ -119,6 +119,7 @@
     </Compile>
     <Compile Include="Controllers\ChangeLogController.cs" />
     <Compile Include="Models\ChangeLogModel.cs" />
+    <Compile Include="Models\ChangeLogItem.cs" />
     <Compile Include="Pipelines\OnItemSavingHandler.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Services\ChangeLogService.cs" />
